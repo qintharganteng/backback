@@ -10,6 +10,8 @@ type AnggotaPerpustakaan struct {
 	Alamat       string             `bson:"alamat,omitempty" json:"alamat,omitempty"`
 	NoTelp       string             `bson:"no_telp,omitempty" json:"no_telp,omitempty"`
 	MembershipID string             `bson:"membership_id,omitempty" json:"membership_id,omitempty"`
+	JamBuka      JamBuka            `bson:"jam_buka,omitempty" json:"jam_buka,omitempty"`
+	Peminjaman   []PeminjamanBuku   `bson:"peminjaman,omitempty" json:"peminjaman,omitempty"`
 }
 
 type JamBuka struct {
@@ -19,11 +21,10 @@ type JamBuka struct {
 }
 
 type PeminjamanBuku struct {
-	ID           primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
-	AnggotaID    primitive.ObjectID `bson:"anggota_id,omitempty" json:"anggota_id,omitempty"`
-	BukuID       primitive.ObjectID `bson:"buku_id,omitempty" json:"buku_id,omitempty"`
-	TanggalPinjam primitive.DateTime `bson:"tanggal_pinjam,omitempty" json:"tanggal_pinjam,omitempty"`
+	ID             primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
+	AnggotaID      primitive.ObjectID `bson:"anggota_id,omitempty" json:"anggota_id,omitempty"`
+	BukuID         primitive.ObjectID `bson:"buku_id,omitempty" json:"buku_id,omitempty"`
+	TanggalPinjam  primitive.DateTime `bson:"tanggal_pinjam,omitempty" json:"tanggal_pinjam,omitempty"`
 	TanggalKembali primitive.DateTime `bson:"tanggal_kembali,omitempty" json:"tanggal_kembali,omitempty"`
-	Status       string             `bson:"status,omitempty" json:"status,omitempty"`
+	Status         string             `bson:"status,omitempty" json:"status,omitempty"`
 }
-
