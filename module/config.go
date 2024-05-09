@@ -2,7 +2,6 @@ package module
 
 import (
 	"os"
-
 	"github.com/aiteung/atdb"
 )
 
@@ -14,3 +13,4 @@ var MongoInfo = atdb.DBInfo{
 }
 
 var MongoConn = atdb.MongoConnect(MongoInfo)
+

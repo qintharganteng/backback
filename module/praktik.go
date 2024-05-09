@@ -1,10 +1,11 @@
-package planetyanglain
+package module
 
 import (
 	"context"
 	"errors"
 	"fmt"
-	"os"
+	"github.com/qintharalmaliki/backn/model"
+
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -14,7 +15,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var MongoString string = os.Getenv("MONGOSTRING")
+// var MongoString string = os.Getenv("MONGOSTRING")
 
 func MongoConnect(dbname string) (db *mongo.Database) {
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(MongoString))
@@ -32,8 +33,9 @@ func InsertOneDoc(db string, collection string, doc interface{}) (insertedID int
 	return insertResult.InsertedID
 }
 
+
 func InsertPeminjamanBuku(anggotaID primitive.ObjectID, bukuID primitive.ObjectID, tanggalPinjam time.Time, tanggalKembali time.Time, status string) (insertedID interface{}) {
-	var peminjaman PeminjamanBuku
+	var peminjaman model.PeminjamanBuku
 	peminjaman.AnggotaID = anggotaID
 	peminjaman.BukuID = bukuID
 	peminjaman.TanggalPinjam = primitive.NewDateTimeFromTime(tanggalPinjam.UTC())
@@ -42,8 +44,9 @@ func InsertPeminjamanBuku(anggotaID primitive.ObjectID, bukuID primitive.ObjectI
 	return InsertOneDoc("tesdb2024", "peminjaman_buku", peminjaman)
 }
 
+
 func InsertJamBuka(hari string, jamMulai string, jamSelesai string) (insertedID interface{}) {
-	var jamBuka JamBuka
+	var jamBuka model.JamBuka
 	jamBuka.Hari = hari
 	jamBuka.JamMulai = jamMulai
 	jamBuka.JamSelesai = jamSelesai
