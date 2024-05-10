@@ -1,10 +1,11 @@
 package module
 
+
 import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/qintharalmaliki/backn/model"
+	"github.com/qintharganteng/backn/model"
 
 	"time"
 
@@ -41,7 +42,7 @@ func InsertPeminjamanBuku(anggotaID primitive.ObjectID, bukuID primitive.ObjectI
 	peminjaman.TanggalPinjam = primitive.NewDateTimeFromTime(tanggalPinjam.UTC())
 	peminjaman.TanggalKembali = primitive.NewDateTimeFromTime(tanggalKembali.UTC())
 	peminjaman.Status = status
-	return InsertOneDoc("tesdb2024", "peminjaman_buku", peminjaman)
+	return InsertOneDoc("tesdb2024", "perpustakaan", peminjaman)
 }
 
 
@@ -50,11 +51,11 @@ func InsertJamBuka(hari string, jamMulai string, jamSelesai string) (insertedID 
 	jamBuka.Hari = hari
 	jamBuka.JamMulai = jamMulai
 	jamBuka.JamSelesai = jamSelesai
-	return InsertOneDoc("tesdb2024", "jam_buka", jamBuka)
+	return InsertOneDoc("tesdb2024", "perpustakaan", jamBuka)
 }
 
-func InsertAnggotaPerpustakaan(nama string, alamat string, noTelp string, membershipID string, jamBuka JamBuka, peminjaman []PeminjamanBuku) (insertedID interface{}) {
-	var anggota AnggotaPerpustakaan
+func InsertAnggotaPerpustakaan(nama string, alamat string, noTelp string, membershipID string, jamBuka model.JamBuka, peminjaman []model.PeminjamanBuku) (insertedID interface{}) {
+	var anggota model.AnggotaPerpustakaan // Use the fully qualified name of the AnggotaPerpustakaan type
 	anggota.ID = primitive.NewObjectID()
 	anggota.Nama = nama
 	anggota.Alamat = alamat
@@ -63,11 +64,11 @@ func InsertAnggotaPerpustakaan(nama string, alamat string, noTelp string, member
 	anggota.JamBuka = jamBuka
 	anggota.Peminjaman = peminjaman
 
-	return InsertOneDoc("tesdb2024", "anggota_perpustakaan", anggota)
+	return InsertOneDoc("tesdb2024", "perpustakaan", anggota)
 }
 
-func GetAllPeminjamanBuku() (data []PeminjamanBuku) {
-	karyawan := MongoConnect("tesdb2024").Collection("peminjaman_buku")
+func GetAllPeminjamanBuku() (data []model.PeminjamanBuku) {
+	karyawan := MongoConnect("tesdb2024").Collection("perpustakaan")
 	filter := bson.M{}
 	cursor, err := karyawan.Find(context.TODO(), filter)
 	if err != nil {
@@ -80,8 +81,8 @@ func GetAllPeminjamanBuku() (data []PeminjamanBuku) {
 	return
 }
 
-func GetAllJamBuka() (data []JamBuka) {
-	koleksi := MongoConnect("tesdb2024").Collection("jam_buka")
+func GetAllJamBuka() (data []model.JamBuka) {
+	koleksi := MongoConnect("tesdb2024").Collection("perpustakaan")
 	filter := bson.M{}
 	cursor, err := koleksi.Find(context.TODO(), filter)
 	if err != nil {
@@ -94,8 +95,8 @@ func GetAllJamBuka() (data []JamBuka) {
 	return
 }
 
-func GetAllAnggotaPerpustakaan() (data []AnggotaPerpustakaan) {
-	koleksi := MongoConnect("tesdb2024").Collection("anggota_perpustakaan")
+func GetAllAnggotaPerpustakaan() (data []model.AnggotaPerpustakaan) {
+	koleksi := MongoConnect("tesdb2024").Collection("perpustakaan")
 	filter := bson.M{}
 	cursor, err := koleksi.Find(context.TODO(), filter)
 	if err != nil {
@@ -108,7 +109,7 @@ func GetAllAnggotaPerpustakaan() (data []AnggotaPerpustakaan) {
 	return
 }
 
-func GetAllPeminjaman(db *mongo.Database, col string) (data []AnggotaPerpustakaan, jam []JamBuka, peminjaman []PeminjamanBuku) {
+func GetAllPeminjaman(db *mongo.Database, col string) (data []model.AnggotaPerpustakaan, jam []model.JamBuka, peminjaman []model.PeminjamanBuku) {
 	koleksi := db.Collection(col)
 	filter := bson.M{}
 	cursor, err := koleksi.Find(context.TODO(), filter)
@@ -123,8 +124,7 @@ func GetAllPeminjaman(db *mongo.Database, col string) (data []AnggotaPerpustakaa
 	return data, nil, nil
 }
 
-
-func GetAnggotaPerpustakaanByID(_id primitive.ObjectID, db *mongo.Database, col string) (anggota AnggotaPerpustakaan, errs error) {
+func GetAnggotaPerpustakaanByID(_id primitive.ObjectID, db *mongo.Database, col string) (anggota model.AnggotaPerpustakaan, errs error) {
 	perpustakaan := db.Collection(col)
 	filter := bson.M{"_id": _id}
 	err := perpustakaan.FindOne(context.TODO(), filter).Decode(&anggota)
