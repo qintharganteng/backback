@@ -3,10 +3,8 @@ package module
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"github.com/qintharganteng/backn/model"
-
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -129,12 +127,11 @@ func GetAnggotaPerpustakaanByID(_id primitive.ObjectID, db *mongo.Database, col 
 	filter := bson.M{"_id": _id}
 	err := perpustakaan.FindOne(context.TODO(), filter).Decode(&anggota)
 	if err != nil {
-		if errors.Is(err, mongo.ErrNoDocuments) {
+		if err == mongo.ErrNoDocuments {
 			return anggota, fmt.Errorf("no data found for ID %s", _id)
 		}
 		return anggota, fmt.Errorf("error retrieving data for ID %s: %s", _id, err.Error())
 	}
 	return anggota, nil
 }
-
 //ghhgh
