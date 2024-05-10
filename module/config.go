@@ -6,7 +6,7 @@ import (
 
 var MongoInfo = atdb.DBInfo{
 	DBString: MongoString,
-	DBName:   "tesdb2024",
+	DBName:   "UTS2024",
 }
 
 var MongoConn = atdb.MongoConnect(MongoInfo)

@@ -39,7 +39,7 @@ func InsertPeminjamanBuku(anggotaID primitive.ObjectID, bukuID primitive.ObjectI
 	peminjaman.TanggalPinjam = primitive.NewDateTimeFromTime(tanggalPinjam.UTC())
 	peminjaman.TanggalKembali = primitive.NewDateTimeFromTime(tanggalKembali.UTC())
 	peminjaman.Status = status
-	return InsertOneDoc("tesdb2024", "perpustakaan", peminjaman)
+	return InsertOneDoc("UTS2024", "perpustakaan", peminjaman)
 }
 
 
@@ -48,7 +48,7 @@ func InsertJamBuka(hari string, jamMulai string, jamSelesai string) (insertedID 
 	jamBuka.Hari = hari
 	jamBuka.JamMulai = jamMulai
 	jamBuka.JamSelesai = jamSelesai
-	return InsertOneDoc("tesdb2024", "perpustakaan", jamBuka)
+	return InsertOneDoc("UTS2024", "perpustakaan", jamBuka)
 }
 
 func InsertAnggotaPerpustakaan(nama string, alamat string, noTelp string, membershipID string, jamBuka model.JamBuka, peminjaman []model.PeminjamanBuku) (insertedID interface{}) {
@@ -61,7 +61,7 @@ func InsertAnggotaPerpustakaan(nama string, alamat string, noTelp string, member
 	anggota.JamBuka = jamBuka
 	anggota.Peminjaman = peminjaman
 
-	return InsertOneDoc("tesdb2024", "perpustakaan", anggota)
+	return InsertOneDoc("UTS2024", "perpustakaan", anggota)
 }
 
 func GetAllPeminjamanBuku() (data []model.PeminjamanBuku) {
@@ -79,7 +79,7 @@ func GetAllPeminjamanBuku() (data []model.PeminjamanBuku) {
 }
 
 func GetAllJamBuka() (data []model.JamBuka) {
-	koleksi := MongoConnect("tesdb2024").Collection("perpustakaan")
+	koleksi := MongoConnect("UTS2024").Collection("perpustakaan")
 	filter := bson.M{}
 	cursor, err := koleksi.Find(context.TODO(), filter)
 	if err != nil {
@@ -93,7 +93,7 @@ func GetAllJamBuka() (data []model.JamBuka) {
 }
 
 func GetAllAnggotaPerpustakaan() (data []model.AnggotaPerpustakaan) {
-	koleksi := MongoConnect("tesdb2024").Collection("perpustakaan")
+	koleksi := MongoConnect("UTS2024").Collection("perpustakaan")
 	filter := bson.M{}
 	cursor, err := koleksi.Find(context.TODO(), filter)
 	if err != nil {

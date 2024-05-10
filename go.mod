@@ -2,7 +2,10 @@ module github.com/qintharganteng/backn
 
 go 1.22.1
 
-require go.mongodb.org/mongo-driver v1.15.0
+require (
+go.mongodb.org/mongo-driver v1.15.0
+github.com/aiteung/atdb v0.1.7
+)
 
 require (
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
