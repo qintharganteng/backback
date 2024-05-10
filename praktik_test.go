@@ -50,10 +50,10 @@ func TestInsertAnggotaPerpustakaan(t *testing.T) {
 	objectID := primitive.NewObjectID()
 
 	// Data untuk pengujian
-	nama := "Muhammad Qinthar"
-	alamat := "Garut, Jawa Barat"
-	noTelp := "082127854156"
-	membershipID := "member_id_1"
+	nama := "Muhammad Andre"
+	alamat := "Cirebon, Jawa Barat"
+	noTelp := "082127854030"
+	membershipID := "member_id_10"
 	status := "Dipinjam"
 	jamBuka := model.JamBuka{
 		Hari:       "Senin",
