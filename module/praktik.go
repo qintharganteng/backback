@@ -1,12 +1,12 @@
 package module
 
-
 import (
 	"context"
 	"fmt"
-	"github.com/qintharganteng/backn/model"
-	"time"
 	"os"
+	"time"
+
+	"github.com/qintharganteng/backn/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -31,7 +31,6 @@ func InsertOneDoc(db string, collection string, doc interface{}) (insertedID int
 	return insertResult.InsertedID
 }
 
-
 func InsertPeminjamanBuku(anggotaID primitive.ObjectID, bukuID primitive.ObjectID, tanggalPinjam time.Time, tanggalKembali time.Time, status string) (insertedID interface{}) {
 	var peminjaman model.PeminjamanBuku
 	peminjaman.AnggotaID = anggotaID
@@ -41,7 +40,6 @@ func InsertPeminjamanBuku(anggotaID primitive.ObjectID, bukuID primitive.ObjectI
 	peminjaman.Status = status
 	return InsertOneDoc("UTS2024", "perpustakaan", peminjaman)
 }
-
 
 func InsertJamBuka(hari string, jamMulai string, jamSelesai string) (insertedID interface{}) {
 	var jamBuka model.JamBuka
@@ -65,7 +63,7 @@ func InsertAnggotaPerpustakaan(nama string, alamat string, noTelp string, member
 }
 
 func GetAllPeminjamanBuku() (data []model.PeminjamanBuku) {
-	karyawan := MongoConnect("tesdb2024").Collection("perpustakaan")
+	karyawan := MongoConnect("UTS2024").Collection("perpustakaan")
 	filter := bson.M{}
 	cursor, err := karyawan.Find(context.TODO(), filter)
 	if err != nil {
@@ -133,4 +131,5 @@ func GetAnggotaPerpustakaanByID(_id primitive.ObjectID, db *mongo.Database, col 
 	}
 	return anggota, nil
 }
+
 //ghhgh

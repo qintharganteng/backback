@@ -10,4 +10,3 @@ var MongoInfo = atdb.DBInfo{
 }
 
 var MongoConn = atdb.MongoConnect(MongoInfo)
-

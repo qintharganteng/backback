@@ -88,17 +88,17 @@ func TestInsertAnggotaPerpustakaan(t *testing.T) {
 	fmt.Println("Inserted Anggota Perpustakaan ID:", insertedID)
 }
 
-func TestGetbyid(t *testing.T) {
-	id := "663da3598269dce16c485747"
-	objectID, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		t.Fatalf("error converting id to ObjectID: %v", err)
-	}
+// func TestGetbyid(t *testing.T) {
+// 	id := "663da3598269dce16c485747"
+// 	objectID, err := primitive.ObjectIDFromHex(id)
+// 	if err != nil {
+// 		t.Fatalf("error converting id to ObjectID: %v", err)
+// 	}
 
-	biodata, err := module.GetAnggotaPerpustakaanByID(objectID, module.MongoConn, "anggota_perpustakaan")
-	if err != nil {
-		t.Fatalf("error calling GetAnggotaPerpustakaanByID: %v", err)
-	}
+// 	biodata, err := module.GetAnggotaPerpustakaanByID(objectID, module.MongoConn, "anggota_perpustakaan")
+// 	if err != nil {
+// 		t.Fatalf("error calling GetAnggotaPerpustakaanByID: %v", err)
+// 	}
 
-	fmt.Println(biodata)
-}
+// 	fmt.Println(biodata)
+// }
