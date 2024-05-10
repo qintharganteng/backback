@@ -6,15 +6,14 @@ import (
 	"fmt"
 	"github.com/qintharganteng/backn/model"
 	"time"
-
+	"os"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// var MongoString string = os.Getenv("MONGOSTRING")
+var MongoString string = os.Getenv("MONGOSTRING")
 
 func MongoConnect(dbname string) (db *mongo.Database) {
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(MongoString))
